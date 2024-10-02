@@ -22,6 +22,7 @@ def main():
     Shot.containers = (updatable, drawable)
     asteroidfield = AsteroidField()
     player = Player(
+        shots_group = shots,
         x = SCREEN_WIDTH / 2,
         y = SCREEN_HEIGHT / 2
     )
@@ -38,6 +39,12 @@ def main():
             if CircleShape.collision(player, object):
                 print("Game over!")
                 sys.exit()
+            for shot in shots:
+                if CircleShape.collision(shot, object):
+                    print(f"Collision detected between {shot} and {object}")
+                    shot.kill()
+                    object.split()
+
         for item in drawable:
             item.draw(screen)
         
